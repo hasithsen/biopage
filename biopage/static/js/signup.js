@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create the span for the input group text
     var span = document.createElement("span");
     span.className = "input-group-text";
-    span.id = "basic-addon3";
-    span.textContent = "example.com/";
+    span.id = "domain-text";
+    span.textContent = document.querySelector('meta[name="domain"]').getAttribute('content') + "/";
 
     // Append the span and input to the new div
     inputGroupDiv.appendChild(span);
