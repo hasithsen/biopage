@@ -11,3 +11,11 @@
   background-color: #f2dede;
   border-color: #eed3d7;
 }
+
+/*  
+.invalid-feedback doesn't show for .input-group with an invalid control 
+https://github.com/twbs/bootstrap/issues/23454#issuecomment-323225871
+*/
+.invalid-feedback {
+  display: block;
+}
