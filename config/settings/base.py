@@ -275,7 +275,8 @@ ACCOUNT_FORMS = {"signup": "biopage.users.forms.UserSignupForm"}
 SOCIALACCOUNT_ADAPTER = "biopage.users.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_FORMS = {"signup": "biopage.users.forms.UserSocialSignupForm"}
-
+# https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 
 # Your stuff...
 # ------------------------------------------------------------------------------
