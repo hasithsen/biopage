@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ userprofile.user.username }}
+{% endblock title %}
+
+{% block bodyclass %}
+{% endblock bodyclass %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+{% comment %} <h2>User Profile</h2>
+<p><strong>Username:</strong> {{ userprofile.user.username }}</p>
+<p><strong>Wroks as:</strong> {{ userprofile.occupation }}</p>
+<p><strong>Workplace:</strong> {{ userprofile.organization }}</p>
+<p><strong>Country:</strong> {{ userprofile.country }}</p>
+<p><strong>Tags:</strong> {{ userprofile.tags }}</p> {% endcomment %}
+
+{% comment %} <div class="container   my-4"> {% endcomment %}
+<div class="card my-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-center">
+      <a href="#" class="">
+        <img style="width: 150px;" alt="..." class="shadow avatar avatar-xl rounded-circle" src="{{ userprofile.profile_picture.url }}">
+      </a>
+    </div>
+    <div class="text-center mt-4">
+      <!-- Title -->
+      <span href="#" class="d-block h3 mb-3">{{ userprofile.display_name }}</span>
+      <!-- Subtitle -->
+      <span class="d-block text-sm text-muted">{{ userprofile.bio }}</span>
+    </div>
+    <!-- Links -->
+    <div class="d-grid gap-2 mt-4">
+    {% for item in userprofile.sociallink_set.all %}
+      <button class="btn btn-light" type="button"><a href="https://{{ item.profile_url }}" class="h4 text-dark font-bolder mb-0 m-1 bi-{{ item.platform_name|lower }}"></a>{{ item.platform_name }}</button>
+    {% endfor %}
+    </div>
+    <hr />
+    <!-- Stats -->
+    <div class="d-flex mt-4">
+      <div class="col-4 text-center">
+        <i href="#" class="h4 font-bolder mb-0 bi-geo-alt-fill"></i>
+        <span class="d-block text-sm m-1">Lives in
+          {% if userprofile.city and userprofile.country %}
+            <strong>{{ userprofile.city }}, {{ userprofile.country }}</strong>
+          {% elif userprofile.city %}
+            <strong>{{ userprofile.city }}</strong>
+          {% elif userprofile.country %}
+            <strong>{{ userprofile.country }}</strong>
+          {% endif %}
+        </span>
+      </div>
+      <div class="col-4 text-center">
+        <i href="#" class="h4 font-bolder mb-0 bi-gear-fill"></i>
+        <span class="d-block text-sm m-1">Works
+          {% if userprofile.occupation and userprofile.organization %}
+            as <strong>{{ userprofile.occupation }}</strong> at <strong>{{ userprofile.organization }}</strong>
+          {% elif userprofile.occupation %}
+            as <strong>{{ userprofile.occupation }}</strong>
+          {% elif userprofile.organization %}
+            at <strong>{{ userprofile.organization }}</strong>
+          {% endif %}
+        </span>
+      </div>
+      <div class="col-4 text-center">
+        <i href="#" class="h4 font-bolder mb-0 bi-stars"></i>
+        <span class="d-block text-sm">Interested in <strong>{{ userprofile.tags }}</strong></span>
+      </div>
+    </div>
+  </div>
+{% comment %} </div> {% endcomment %}
+</div>
+{% endblock content %}

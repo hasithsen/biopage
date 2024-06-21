@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ user.username }}
+{% endblock title %}
+{% block content %}
+
+<div class="my-4">
+  <div class="d-flex justify-content-center">
+    <img style="width: 150px;" alt="..." class="shadow avatar avatar-xl rounded-circle" src="{{ userprofile.profile_picture.url }}">
+    <a href="#" class="">{{ user.username }}</a>
+  </div>
+  <form class="form-horizontal"
+        method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}
