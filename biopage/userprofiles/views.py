@@ -34,13 +34,6 @@ class UserProfileCreateView(LoginRequiredMixin, CreateView):
             )
         return super().dispatch(*args, **kwargs)
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     # Check if the user already has a UserProfile
-    #     if hasattr(request.user, "userprofile"):
-    #         # Redirect to the profile detail page if the user already has a profile
-    #         return redirect("userprofiles:update", pk=request.user.userprofile.pk)
-    #     return super().dispatch(request, *args, **kwargs)
-
 
 userprofile_create_view = UserProfileCreateView.as_view()
 

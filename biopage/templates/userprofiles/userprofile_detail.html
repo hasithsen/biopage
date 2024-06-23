@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {{ userprofile.user.username }}
+  {{ userprofile.display_name }}
 {% endblock title %}
 
 {% block bodyclass %}
@@ -24,9 +24,11 @@
 <div class="card my-4">
   <div class="card-body">
     <div class="d-flex justify-content-center">
-      <a href="#" class="">
+      <a href="{% url 'userprofiles:detail' userprofile.id %}" class="">
         {% if userprofile.profile_picture %}
-          <img style="width: 150px;" alt="..." class="shadow avatar avatar-xl rounded-circle" src="{{ userprofile.profile_picture.url }}">
+          <div class="avatar-wrapper shadow">
+              <img src="{{ userprofile.profile_picture.url }}" alt="Avatar" class="img-fluid">
+          </div>
         {% else %}
           <span class="letter-circle">{{ userprofile.display_name.0 }}</span>
         {% endif %}
