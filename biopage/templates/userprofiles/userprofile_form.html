@@ -1,9 +1,8 @@
 {% extends "base.html" %}
-
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 
 {% block title %}
-  Profile: {% if userprofile %}{{ userprofile.user.username }}{% else %}Create{% endif %}
+  Profile: {% if userprofile %}{{ userprofile.display_name }}{% else %}Create{% endif %}
 {% endblock title %}
 
 {% block content %}
@@ -31,3 +30,8 @@
   </form>
 </div>
 {% endblock content %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script defer src="{% static 'js/userprofile_form.js' %}"></script> 
+{% endblock javascript %}

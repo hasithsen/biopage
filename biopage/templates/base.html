@@ -82,15 +82,10 @@
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
             {% if request.user.is_authenticated %}
-              {% if request.user.userprofile %}
+              {% if request.user.userprofile_set %}
                 <li class="nav-item">
                   <a class="nav-link"
-                    target="_blank"
-                    href="{% url 'userprofiles:detail' request.user.userprofile.id %}">{% translate "View Profile" %}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link"
-                    href="{% url 'userprofiles:update' request.user.userprofile.id %}">{% translate "Edit Profile" %}</a>
+                    href="{% url 'userprofiles:list' %}">{% translate "Profiles" %}</a>
                 </li>
               {% endif %}
               <li class="nav-item">

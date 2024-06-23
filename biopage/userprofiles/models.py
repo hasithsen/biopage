@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 
@@ -14,8 +15,11 @@ class SocialLink(models.Model):
     platform_name = models.CharField(max_length=50)
     profile_url = models.URLField()
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return f"{self.user_profile} - {self.platform_name}"
+        return f"{self.user_profile} - {self.platform_name} - { self.id }"
 
     def get_absolute_url(self):
         return reverse("userprofiles:detail", kwargs={"pk": self.user.pk})
@@ -23,7 +27,19 @@ class SocialLink(models.Model):
 
 class UserProfile(models.Model):
     # Basic Info
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profilename = models.CharField(
+        max_length=30,
+        unique=True,
+        validators=[
+            RegexValidator(
+                regex=r"^[a-zA-Z0-9_]+$",
+                message="Profile name can only contain alphanumeric characters and underscores",
+                code="invalid_profilename",
+            ),
+        ],
+        verbose_name="Profile handle",
+    )
     display_name = models.CharField(max_length=255, default="")
     bio = models.TextField(
         blank=True,
@@ -61,8 +77,11 @@ class UserProfile(models.Model):
         null=True,
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username} - {self.profilename}"
 
     def get_absolute_url(self):
-        return reverse("userprofiles:detail", kwargs={"pk": self.pk})
+        return reverse("userprofiles:detail", kwargs={"profilename": self.profilename})

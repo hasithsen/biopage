@@ -3,14 +3,76 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  User Profiles
+Profiles
 {% endblock title %}
 
 {% block content %}
-<h2>User Profiles</h2>
-<ul>
-  {% for userprofile in object_list %}
-    <a href="{% url 'userprofiles:detail' userprofile.id %}" class="">{{ userprofile.user }}</a>
-  {% endfor %}
-</ul>
+<h2>Profiles</h2>
+
+<div class="table-responsive">
+  <table class="table table-hover table-nowrap">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Handle</th>
+        <th scope="col">Display Name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for userprofile in userprofile_list %}
+        <td data-label="Handle">
+          <a href="{% url 'userprofiles:detail' userprofile.profilename %}" class="d-flex align-items-center text-decoration-none">
+            <div class="avatar-wrapper-sm shadow me-2">
+              {% if userprofile.profile_picture %}
+                <img src="{{ userprofile.profile_picture.url }}" alt="Avatar" class="img-fluid">
+              {% else %}
+                <h4 class="m-0"><strong>{{ userprofile.display_name.0 }}</strong></h4>
+              {% endif %}
+            </div>
+            <span class="flex-grow-1">{{ userprofile.profilename }}</span>
+          </a>
+        </td>
+        <td class="align-middle" data-label="Display Name">
+          <a href="{% url 'userprofiles:detail' userprofile.profilename %}" class="text-decoration-none">
+            {{ userprofile.display_name }}
+          </a>
+        </td>
+        <td class="align-middle" data-label="">
+          <a target="_blank" href="{% url 'userprofiles:detail' userprofile.profilename %}" class="text-decoration-none">
+            <i class="h4 font-bolder mb-0 bi-box-arrow-up-right"></i>
+          </a>
+        </td>
+        <td class="align-middle" data-label="">
+          <a href="{% url 'userprofiles:detail' userprofile.profilename %}" class="text-decoration-none">
+            <i class="h4 font-bolder mb-0 bi-share-fill"></i>
+          </a>
+        </td>
+        <td class="align-middle" data-label="" class="text-end">
+          <a href="{% url 'userprofiles:update' userprofile.profilename %}" class="text-decoration-none">
+            <i class="h4 font-bolder mb-0 bi-pencil-square"></i>
+          </a>
+        </td>
+        <td class="align-middle" data-label="" class="text-end">
+          <a href="{% url 'userprofiles:detail' userprofile.profilename %}" class="text-decoration-none">
+            <i class="h4 font-bolder mb-0 bi-trash-fill text-danger"></i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="row mt-2">
+  <div class="col-sm-12">
+    <a class="btn btn-primary"
+    href="{% url 'userprofiles:create' %}"
+    role="button">Create Profile</a>
+  </div>
+</div>
+
 {% endblock content %}

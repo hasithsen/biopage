@@ -3,25 +3,19 @@
 {% load static %}
 
 {% block title %}
-  User: 
-  
-    {{ object.username }}
-  
-  
+User: {{ object.username }}
 {% endblock title %}
+
 {% block content %}
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
         <h2>
-        
-        
           {{ object.username }}
-        
-      </h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
+        </h2>
+        {% if object.name %}
+          <p>{{ object.name }}</p>
+        {% endif %}
     </div>
   </div>
   {% if object == request.user %}
@@ -40,5 +34,17 @@
     </div>
     <!-- End Action buttons -->
   {% endif %}
+
+  {% if not user.userprofile_set.exists %}
+    <div class="row mt-4">
+      <div class="col-sm-12">
+        <a class="btn btn-primary"
+        href="{% url 'userprofiles:create' %}"
+        role="button">Create Profile</a>
+      </div>
+    </div>
+  {% endif %}
+
 </div>
+
 {% endblock content %}

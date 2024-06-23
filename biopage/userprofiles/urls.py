@@ -8,23 +8,23 @@ from .views import userprofile_update_view
 app_name = "userprofiles"
 urlpatterns = [
     path(
-        "userprofiles/~create/",
+        "profiles/~create/",
         view=userprofile_create_view,
         name="create",
     ),
     path(
-        "userprofiles/~update/<int:pk>",
+        "profiles/~update/<str:profilename>",
         view=userprofile_update_view,
         name="update",
     ),
     path(
-        "<int:pk>/",
-        view=userprofile_detail_view,
-        name="detail",
-    ),
-    path(
-        "userprofiles/",
+        "profiles/",
         view=userprofile_list_view,
         name="list",
+    ),
+    path(
+        "<str:profilename>/",
+        view=userprofile_detail_view,
+        name="detail",
     ),
 ]

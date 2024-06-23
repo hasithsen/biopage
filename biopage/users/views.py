@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -16,13 +17,17 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     slug_field = "username"
     slug_url_kwarg = "username"
 
-    def dispatch(self, *args, **kwargs):
-        if not UserProfile.objects.filter(user=self.request.user).exists():
-            # Redirect to profile detail page or any other page
-            return redirect(
-                "userprofiles:create",
-            )
-        return super().dispatch(*args, **kwargs)
+    def get_object(self, queryset=None):
+        # Return the User instance of the currently logged-in user
+        return self.request.user
+
+    # def dispatch(self, *args, **kwargs):
+    #     if not UserProfile.objects.filter(user=self.request.user).exists():
+    #         # Redirect to profile detail page or any other page
+    #         return redirect(
+    #             "userprofiles:create",
+    #         )
+    #     return super().dispatch(*args, **kwargs)
 
 
 user_detail_view = UserDetailView.as_view()

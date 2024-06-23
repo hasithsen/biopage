@@ -24,14 +24,14 @@
 <div class="card my-4">
   <div class="card-body">
     <div class="d-flex justify-content-center">
-      <a href="{% url 'userprofiles:detail' userprofile.id %}" class="">
+      <a href="{% url 'userprofiles:detail' userprofile.profilename %}" class="text-decoration-none">
+        <div class="avatar-wrapper shadow">
         {% if userprofile.profile_picture %}
-          <div class="avatar-wrapper shadow">
-              <img src="{{ userprofile.profile_picture.url }}" alt="Avatar" class="img-fluid">
-          </div>
+          <img src="{{ userprofile.profile_picture.url }}" alt="Avatar" class="img-fluid">
         {% else %}
-          <span class="letter-circle">{{ userprofile.display_name.0 }}</span>
+          <h1><strong>{{ userprofile.display_name.0 }}</strong></h1>
         {% endif %}
+        </div>
       </a>
     </div>
     <div class="text-center mt-4">
@@ -43,7 +43,7 @@
     <!-- Links -->
     <div class="d-grid gap-2 mt-4">
     {% for item in userprofile.sociallink_set.all %}
-      <a class="btn btn-light" href="{{ item.profile_url }}" role="button"><i class="m-1 bi-{{ item.platform_name|lower }}"></i>{{ item.platform_name }}</a>
+      <a class="btn btn-light" href="{{ item.profile_url }}" role="button"><i class="me-1 bi-{{ item.platform_name|lower }}"></i>{{ item.platform_name }}</a>
     {% endfor %}
     </div>
     {% if userprofile.location or userprofile.occupation or userprofile.tags %}
@@ -54,13 +54,13 @@
       {% if userprofile.location %}
       <div class="col-4 text-center">
         <i href="#" class="h4 font-bolder mb-0 bi-geo-alt-fill"></i>
-        <span class="d-block text-sm m-1">Lives in <strong>{{ userprofile.location }}</strong></span>
+        <span class="d-block text-sm ms-1">Lives in <strong>{{ userprofile.location }}</strong></span>
       </div>
       {% endif %}
       {% if userprofile.occupation %}
       <div class="col-4 text-center">
         <i href="#" class="h4 font-bolder mb-0 bi-gear-fill"></i>
-        <span class="d-block text-sm m-1">Works as <strong>{{ userprofile.occupation }}</strong></span>
+        <span class="d-block text-sm ms-1">Works as <strong>{{ userprofile.occupation }}</strong></span>
       </div>
       {% endif %}
       {% if userprofile.tags %}
