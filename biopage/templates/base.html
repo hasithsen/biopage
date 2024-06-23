@@ -82,9 +82,20 @@
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
             {% if request.user.is_authenticated %}
+              {% if request.user.userprofile %}
+                <li class="nav-item">
+                  <a class="nav-link"
+                    target="_blank"
+                    href="{% url 'userprofiles:detail' request.user.userprofile.id %}">{% translate "View Profile" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link"
+                    href="{% url 'userprofiles:update' request.user.userprofile.id %}">{% translate "Edit Profile" %}</a>
+                </li>
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link"
-                   href="{% url 'users:detail' request.user.username %}">{% translate "My Profile" %}</a>
+                   href="{% url 'users:detail' request.user.username %}">{% translate "Account" %}</a>
               </li>
               <li class="nav-item">
                 {# URL provided by django-allauth/account/urls.py #}

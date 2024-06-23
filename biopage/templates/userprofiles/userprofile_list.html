@@ -3,14 +3,14 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {{ user.username }}
+  User Profiles
 {% endblock title %}
 
 {% block content %}
 <h2>User Profiles</h2>
 <ul>
-    {% for userprofile in object_list %}
-        <li>{{ userprofile.user }}</li>
-    {% endfor %}
+  {% for userprofile in object_list %}
+    <a href="{% url 'userprofiles:detail' userprofile.id %}" class="">{{ userprofile.user }}</a>
+  {% endfor %}
 </ul>
 {% endblock content %}

@@ -25,27 +25,25 @@ class UserProfile(models.Model):
     # Basic Info
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=255, default="")
-    bio = models.TextField(blank=True, default="")
-    city = models.CharField(max_length=255, blank=True, default="")
-    country = models.CharField(max_length=255, blank=True, default="")
+    bio = models.TextField(
+        blank=True,
+        default="",
+        verbose_name="About",
+    )
+    location = models.CharField(
+        max_length=255,
+        blank=True,
+        default="",
+        verbose_name="Lives in",
+    )
 
     # occupation Info
     occupation = models.CharField(
         max_length=255,
         blank=True,
         default="",
-        verbose_name="Wroks as",
+        verbose_name="Works as",
     )
-    organization = models.CharField(
-        max_length=255,
-        blank=True,
-        default="",
-        verbose_name="Workplace",
-    )
-
-    # Social Links
-    # social_links = models.ManyToManyField(SocialLink, blank=True)
-    # social_links = models.ForeignKey(SocialLink, on_delete=models.CASCADE)
 
     # Tags
     tags = models.CharField(

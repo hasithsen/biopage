@@ -19,3 +19,16 @@ https://github.com/twbs/bootstrap/issues/23454#issuecomment-323225871
 .invalid-feedback {
   display: block;
 }
+
+.letter-circle {
+  display: inline-block;
+  background-color: #800000;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 100px;
+  line-height: 150px;
+  /* set to same size as width, height */
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}

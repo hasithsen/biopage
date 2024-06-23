@@ -3,15 +3,19 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-  {{ user.username }}
+  Profile {% if userprofile %} — userprofile.user {% endif %}
 {% endblock title %}
-{% block content %}
 
+{% block content %}
 <div class="my-4">
-  <div class="d-flex justify-content-center">
-    <img style="width: 150px;" alt="..." class="shadow avatar avatar-xl rounded-circle" src="{{ userprofile.profile_picture.url }}">
-    <a href="#" class="">{{ user.username }}</a>
-  </div>
+  {% if userprofile %}
+    <div class="d-flex justify-content-center">
+      {% if userprofile.profile_picture %}
+        <img style="width: 150px;" alt="..." class="shadow avatar avatar-xl rounded-circle" src="{{ userprofile.profile_picture.url }}">
+      {% endif %}
+      <a href="{% url 'users:update' %}" class="">{{ userprofile.user.username }}</a>
+    </div>
+  {% endif %}
   <form class="form-horizontal"
         method="post">
     {% csrf_token %}

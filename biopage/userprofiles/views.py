@@ -16,9 +16,7 @@ class UserProfileCreateView(LoginRequiredMixin, CreateView):
         "display_name",
         "bio",
         "occupation",
-        "organization",
-        "city",
-        "country",
+        "location",
         "tags",
     )
     # success_url = "/success-url/"
@@ -36,6 +34,13 @@ class UserProfileCreateView(LoginRequiredMixin, CreateView):
             )
         return super().dispatch(*args, **kwargs)
 
+    # def dispatch(self, request, *args, **kwargs):
+    #     # Check if the user already has a UserProfile
+    #     if hasattr(request.user, "userprofile"):
+    #         # Redirect to the profile detail page if the user already has a profile
+    #         return redirect("userprofiles:update", pk=request.user.userprofile.pk)
+    #     return super().dispatch(request, *args, **kwargs)
+
 
 userprofile_create_view = UserProfileCreateView.as_view()
 
@@ -47,9 +52,7 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
         "display_name",
         "bio",
         "occupation",
-        "organization",
-        "city",
-        "country",
+        "location",
         "tags",
     )
     # success_url = "/success-url/"
