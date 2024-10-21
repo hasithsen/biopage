@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags static %}
+
+{% block title %}
+  Profile: {% if userprofile %}{{ userprofile.display_name }}{% else %}Create{% endif %}
+{% endblock title %}
+
+{% block content %}
+<div class="my-4">
+  {% if userprofile %}
+    <div class="d-flex justify-content-center">
+      {% if userprofile.profile_picture %}
+        <div class="avatar-wrapper shadow">
+          <img src="{{ userprofile.profile_picture.url }}" alt="Avatar" class="img-fluid">
+        </div>
+      {% endif %}
+      <a href="{% url 'users:update' %}" class="">{{ userprofile.user.username }}</a>
+    </div>
+  {% endif %}
+  <form class="form-horizontal"
+        method="post"
+        enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script defer src="{% static 'js/userprofile_form.js' %}"></script> 
+{% endblock javascript %}

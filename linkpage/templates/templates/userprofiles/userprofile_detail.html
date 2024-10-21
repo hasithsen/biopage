@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ userprofile.display_name }}
+{% endblock title %}
+
+{% block bodyclass %}
+{% endblock bodyclass %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block content %}
+{% comment %} <h2>User Profile</h2>
+<p><strong>Username:</strong> {{ userprofile.user.username }}</p>
+<p><strong>Wroks as:</strong> {{ userprofile.occupation }}</p>
+<p><strong>Workplace:</strong> {{ userprofile.organization }}</p>
+<p><strong>Country:</strong> {{ userprofile.country }}</p>
+<p><strong>Tags:</strong> {{ userprofile.tags }}</p> {% endcomment %}
+
+<div class="container   my-4">
+<div class="card my-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-center">
+      <a href="{% url 'userprofiles:detail' userprofile.profilename %}" class="text-decoration-none">
+        <div class="avatar-wrapper shadow">
+        {% if userprofile.profile_picture %}
+          <img src="{{ userprofile.profile_picture.url }}" alt="Avatar" class="img-fluid">
+        {% else %}
+          <h1><strong>{{ userprofile.display_name.0 }}</strong></h1>
+        {% endif %}
+        </div>
+      </a>
+    </div>
+    <div class="text-center mt-4">
+      <!-- Title -->
+      <span href="#" class="d-block h3 mb-3">{{ userprofile.display_name }}</span>
+      <!-- Subtitle -->
+      <span class="d-block text-sm text-muted">{{ userprofile.bio }}</span>
+    </div>
+    <!-- Links -->
+    <div class="d-grid gap-2 mt-4">
+    {% for item in userprofile.sociallink_set.all %}
+      <a class="btn btn-light" href="{{ item.profile_url }}" role="button"><i class="me-1 bi-{{ item.platform_name|lower }}"></i>{{ item.platform_name }}</a>
+    {% endfor %}
+    </div>
+    {% if userprofile.location or userprofile.occupation or userprofile.tags %}
+    <hr />
+    {% endif %}
+    <!-- Stats -->
+    <div class="d-flex justify-content-center mt-4">
+      {% if userprofile.location %}
+      <div class="col-4 text-center">
+        <i href="#" class="h4 font-bolder mb-0 bi-geo-alt-fill"></i>
+        <span class="d-block text-sm ms-1">Lives in <strong>{{ userprofile.location }}</strong></span>
+      </div>
+      {% endif %}
+      {% if userprofile.occupation %}
+      <div class="col-4 text-center">
+        <i href="#" class="h4 font-bolder mb-0 bi-gear-fill"></i>
+        <span class="d-block text-sm ms-1">Works as <strong>{{ userprofile.occupation }}</strong></span>
+      </div>
+      {% endif %}
+      {% if userprofile.tags %}
+      <div class="col-4 text-center">
+        <i href="#" class="h4 font-bolder mb-0 bi-stars"></i>
+        <span class="d-block text-sm">Interested in <strong>{{ userprofile.tags }}</strong></span>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock content %}
